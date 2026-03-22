@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Digital Portfolio Registration</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #4facfe, #00f2fe);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        width: 420px;
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-top: 10px;
+        display: block;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 12px;
+        margin: 5px 0 15px 0;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    textarea {
+        resize: none;
+        height: 80px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background-color: #4facfe;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        margin-top: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #007bff;
+    }
+
+    @media(max-width: 480px) {
+        .container {
+            width: 90%;
+            padding: 20px;
+        }
+    }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h2>Portfolio Registration</h2>
+
+    <form onsubmit="return validateForm()">
+
+        <label for="name">Full Name*</label>
+        <input type="text" id="name" placeholder="Full Name" required>
+
+        <label for="email">Email Address*</label>
+        <input type="email" id="email" placeholder="Email Address" required>
+
+        <label for="password">Password*</label>
+        <input type="password" id="password" placeholder="Password" required>
+
+        <label for="skills">Skills</label>
+        <input type="text" id="skills" placeholder="Skills (e.g., Python, Web Dev)">
+
+        <label for="projects">Project Details</label>
+        <textarea id="projects" placeholder="Project Details"></textarea>
+
+        <label for="github">GitHub Profile Link</label>
+        <input type="url" id="github" placeholder="https://github.com/username">
+
+        <label for="resume">Upload Resume</label>
+        <input type="file" id="resume">
+
+        <button type="submit">Create Portfolio</button>
+    </form>
+</div>
+
+<script>
+function validateForm() {
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let github = document.getElementById("github").value.trim();
+    let resume = document.getElementById("resume").files[0];
+
+    if(name === "" || email === "" || password === "") {
+        alert("Please fill all required fields");
+        return false;
+    }
+
+    if(password.length < 6) {
+        alert("Password must be at least 6 characters");
+        return false;
+    }
+
+    if(github !== "" && !github.startsWith("https://github.com/")) {
+        alert("Please enter a valid GitHub profile link");
+        return false;
+    }
+
+    if(resume && !["application/pdf","application/msword","application/vnd.openxmlformats-officedocument.wordprocessingml.document"].includes(resume.type)) {
+        alert("Resume must be a PDF or Word document");
+        return false;
+    }
+
+    alert("Portfolio Created Successfully!");
+    document.querySelector("form").reset();
+    return false; // prevent actual submission for demo
+}
+</script>
+
+</body>
+</html>
